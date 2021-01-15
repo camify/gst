@@ -7,7 +7,7 @@ void X_gst_shim_init() {
   gchar *nano_str;
   guint major, minor, micro, nano;
 
-  fprintf(stderr, "[ GSTREAMER ] shim init\n");
+  //fprintf(stderr, "[ GSTREAMER ] shim init\n");
   gst_init(0, NULL);
 
   gst_version (&major, &minor, &micro, &nano);
@@ -19,8 +19,7 @@ void X_gst_shim_init() {
   else
     nano_str = "";
 
-  printf ("[ GST ] program is linked against GStreamer %d.%d.%d %s\n",
-          major, minor, micro, nano_str);
+  //printf ("[ GST ] program is linked against GStreamer %d.%d.%d %s\n",  major, minor, micro, nano_str);
 
   return;
 }
