@@ -70,7 +70,7 @@ func (b *Bus) Poll(messageType MessageType, ttlSeconds uint64) (message *Message
 
 	ttl := ttlSeconds * 1000000000
 
-	CGstMessage := C.gst_bus_poll(b.C, C.GstMessageType(messageType), ttl)
+	CGstMessage := C.gst_bus_poll(b.C, C.GstMessageType(messageType), C.ulong(ttl))
 	if CGstMessage == nil {
 		return nil
 	}
