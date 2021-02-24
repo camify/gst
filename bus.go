@@ -66,6 +66,26 @@ func (b *Bus) Pull(messageType MessageType) (message *Message) {
 	return
 }
 
+func (b *Bus) Poll(messageType MessageType, ttlSeconds uint64) (message *Message) {
+
+	ttl := ttlSeconds * 1, 000, 000, 000
+
+	CGstMessage := C.gst_bus_poll(b.C, C.GstMessageType(messageType), ttl)
+	if CGstMessage == nil {
+		return nil
+	}
+
+	message = &Message{
+		C: CGstMessage,
+	}
+
+	runtime.SetFinalizer(message, func(message *Message) {
+		C.gst_message_unref(message.C)
+	})
+
+	return
+}
+
 func (b *Bus) TimedPopFiltered(timeout time.Duration, messageType MessageType) (message *Message) {
 
 	CGstMessage := C.gst_bus_timed_pop_filtered(b.C, C.GstClockTime(uint64(timeout)), C.GstMessageType(messageType))
