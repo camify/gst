@@ -68,7 +68,7 @@ func (b *Bus) Pull(messageType MessageType) (message *Message) {
 
 func (b *Bus) Poll(messageType MessageType, ttlSeconds uint64) (message *Message) {
 
-	ttl := ttlSeconds * 1, 000, 000, 000
+	ttl := ttlSeconds * 1000000000
 
 	CGstMessage := C.gst_bus_poll(b.C, C.GstMessageType(messageType), ttl)
 	if CGstMessage == nil {
